@@ -14,7 +14,7 @@ import java.io.IOException;
  * Note: a few minor changes were added to STDDraw suit the logic of Ex2:
  * 
  * @author boaz.benmoshe
- *
+ *d
  */
 public class Ex2GUI {
 
