@@ -3,16 +3,11 @@ public class SCell implements Cell {
     private int type;
 
     public SCell(String s) {
-        // Add your code here
         setData(s);
     }
 
     @Override
     public int getOrder() {
-        // Add your code here
-
-        /////////////////////
-        
         return 0;
     }
 
@@ -24,9 +19,7 @@ public class SCell implements Cell {
 
     @Override
     public void setData(String s) {
-        // Add your code here
         line = s;
-        /////////////////////
     }
 
     @Override
@@ -46,7 +39,6 @@ public class SCell implements Cell {
 
     @Override
     public void setOrder(int t) {
-        // Add your code here
 
     }
 }

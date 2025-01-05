@@ -71,7 +71,6 @@ public class Ex2Sheet implements Sheet {
     int[][] ans = new int[width()][height()];
     for (int x = 0; x < width(); x++) {
       for (int y = 0; y < height(); y++) {
-
       }
     }
 
@@ -171,11 +170,11 @@ public class Ex2Sheet implements Sheet {
     return computable;
   }
 
-  String compute(String line, List<Position> positions) {
+   String compute(String line, List<Position> positions) {
     if (line.startsWith("=")) {
       String str = line.substring(1).replaceAll(" ", "");
 
-      return helperCompute(str, positions);
+      return helperCompute  (str, positions);
     }
 
     double num = parseDouble(line);
@@ -254,7 +253,7 @@ public class Ex2Sheet implements Sheet {
     return Ex2Utils.ERR_FORM;
   }
 
-  int getOpIndex(String expr) {
+  int getOpIndex(String sttr) {
     boolean found = false;
 
     int db = Integer.MAX_VALUE;
@@ -262,8 +261,8 @@ public class Ex2Sheet implements Sheet {
     int ib = Integer.MAX_VALUE;
 
     int dc = 0;
-    for (int ic = 0; ic < expr.length(); ic++) {
-      char ch = expr.charAt(ic);
+    for (int ic = 0; ic < sttr.length(); ic++) {
+      char ch = sttr.charAt(ic);
 
       if (ch == '(') {
         dc++;
