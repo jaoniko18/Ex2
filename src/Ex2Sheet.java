@@ -1,13 +1,14 @@
-
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 
 public class Ex2Sheet implements Sheet {
   private Cell[][] table;
+  private String fileName;
 
   public Ex2Sheet(int x, int y) {
     table = new SCell[x][y];
@@ -58,9 +59,6 @@ public class Ex2Sheet implements Sheet {
 
   @Override
   public void eval() {
-    // Add your code here
-
-    //////////////////////
   }
 
   @Override
@@ -71,7 +69,6 @@ public class Ex2Sheet implements Sheet {
   @Override
   public int[][] depth() {
     int[][] ans = new int[width()][height()];
-
     for (int x = 0; x < width(); x++) {
       for (int y = 0; y < height(); y++) {
 
@@ -130,8 +127,32 @@ public class Ex2Sheet implements Sheet {
   @Override
   public void save(String fileName) throws IOException {
     // Add your code here
-//continue
-    /////////////////////
+      CreateFile();
+      FileWriter myWriter = new FileWriter(this.fileName);
+      try{
+      myWriter.write("I2CS ArielU: SpreadSheet (Ex2) assignment - this line should be ignored in\n");
+      myWriter.close();
+      } catch (IOException e) {
+        System.out.println("An error occurred. ");
+        e.printStackTrace();
+      }
+  }
+
+  public void CreateFile(){
+    try{
+      File myFile = new File("a1.txt");
+      this.fileName = "a1.txt";
+      //Attempt to create the file
+      if(myFile.createNewFile()){
+        System.out.println("File created: " + myFile.getName());
+      } else{
+        System.out.println("File already exists ");
+      }
+    }
+    catch(IOException e){
+      System.out.println("Error. Something wrong with files");
+      e.printStackTrace();
+    }
   }
 
   @Override
@@ -152,9 +173,9 @@ public class Ex2Sheet implements Sheet {
 
   String compute(String line, List<Position> positions) {
     if (line.startsWith("=")) {
-      String expr = line.substring(1).replaceAll(" ", "");
+      String str = line.substring(1).replaceAll(" ", "");
 
-      return collapse(expr, positions);
+      return helperCompute(str, positions);
     }
 
     double num = parseDouble(line);
@@ -165,7 +186,7 @@ public class Ex2Sheet implements Sheet {
     return line;
   }
 
-  String collapse(String form, List<Position> positions) {
+  String helperCompute(String form, List<Position> positions) {
     while (form.startsWith("(") && form.endsWith(")"))
       form = form.substring(1, form.length() - 1);
 
@@ -202,8 +223,8 @@ public class Ex2Sheet implements Sheet {
     char op = form.charAt(signIndex);
 
     if (sub0 != "") {
-      String num0Str = collapse(sub0, positions);
-      String num1Str = collapse(sub1, positions);
+      String num0Str = helperCompute(sub0, positions);
+      String num1Str = helperCompute(sub1, positions);
 
       if (Objects.equals(num0Str, Ex2Utils.ERR_FORM) || Objects.equals(num1Str, Ex2Utils.ERR_FORM))
         return Ex2Utils.ERR_FORM;
@@ -219,7 +240,7 @@ public class Ex2Sheet implements Sheet {
     }
 
     if (op == '+' || op == '-') {
-      String num1Str = collapse(sub1, positions);
+      String num1Str = helperCompute(sub1, positions);
 
       if (parseDouble(num1Str) == -1)
         return num1Str;
