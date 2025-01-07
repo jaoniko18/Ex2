@@ -1,9 +1,13 @@
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+
 
 
 public class Ex2Sheet implements Sheet {
@@ -118,41 +122,42 @@ public class Ex2Sheet implements Sheet {
 
   @Override
   public void load(String fileName) throws IOException {
-    // Add your code here
+    List<String> strs = Files.readAllLines(Paths.get(fileName));
 
-    /////////////////////
+    for (int x = 0; x < width(); x++) {
+      for (int y = 0; y < height(); y++) {
+        table[x][y].setData("");
+      }
+    }
+
+    for (int i = 1; i < strs.size(); i++) {
+      String[] split = strs.get(i).split(",");
+      int x = Integer.parseInt(split[0]);
+      int y = Integer.parseInt(split[1]);
+
+      table[x][y].setData(split[2]);
+    }
   }
 
   @Override
   public void save(String fileName) throws IOException {
-    // Add your code here
-      CreateFile();
-      FileWriter myWriter = new FileWriter(this.fileName);
-      try{
-      myWriter.write("I2CS ArielU: SpreadSheet (Ex2) assignment - this line should be ignored in\n");
-      myWriter.close();
-      } catch (IOException e) {
-        System.out.println("An error occurred. ");
-        e.printStackTrace();
+    String first_line = "I2CS ArielU: SpreadSheet (Ex2) assignment";
+
+    for (int y = 0; y < height(); y++) {
+      for (int x = 0; x < width(); x++) {
+        SCell cell = (SCell)table[x][y];
+        String line = cell.getData();
+        if (line != "") {
+          first_line += x + "," + y + "," + line + "\n";
+        }
       }
+    }
+
+    FileWriter myWriter = new FileWriter(fileName);
+    myWriter.write(first_line);
+    myWriter.close();
   }
 
-  public void CreateFile(){
-    try{
-      File myFile = new File("a1.txt");
-      this.fileName = "a1.txt";
-      //Attempt to create the file
-      if(myFile.createNewFile()){
-        System.out.println("File created: " + myFile.getName());
-      } else{
-        System.out.println("File already exists ");
-      }
-    }
-    catch(IOException e){
-      System.out.println("Error. Something wrong with files");
-      e.printStackTrace();
-    }
-  }
 
   @Override
   public String eval(int x, int y) {
