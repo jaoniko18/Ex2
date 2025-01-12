@@ -18,4 +18,9 @@ isIn: returns the dimension (length) of the x-coordinate of this spreadsheet
 isOp: basically checks whether the operatos is '-' or '+' or '*' or '/'
 signType: giving a proper evaluation due to an operator: '+' and '-' are least valuable, '*' nad '-' and parenthesses higher valuable
 parseDouble: parses number into double if its possible if not throws an exception 
-
+םשג
+<img width="1710" alt="Screenshot 2025-01-12 at 15 28 58" src="https://github.com/user-attachments/assets/90cb4c2a-2bc5-4e9d-a4ba-b82408d2f78e" />
+<img width="1710" alt="Screenshot 2025-01-12 at 15 30 18" src="https://github.com/user-attachments/assets/55889f0f-ae12-4550-86ef-6bff994ff4f3" />
+<img width="1710" alt="Screenshot 2025-01-12 at 15 30 43" src="https://github.com/user-attachments/assets/13cfa8f6-e23d-428e-8a81-5dee5c49ef3f" />
+<img width="1710" alt="Screenshot 2025-01-12 at 15 31 00" src="https://github.com/user-attachments/assets/f4bed1d2-7015-4042-b5c8-0d6a64fde83d" />
+<img width="1710" alt="Screenshot 2025-01-12 at 15 31 08" src="https://github.com/user-attachments/assets/33d6fd81-fa2e-4d6c-bf36-0f1c03bcb7b0" />
