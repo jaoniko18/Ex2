@@ -21,7 +21,7 @@ public class SCell implements Cell {
     public void setData(String s) {
         line = s;
     }
-
+    //Getters and Setters
     @Override
     public String getData() {
         return line;

@@ -33,6 +33,7 @@ public class Ex2Sheet implements Sheet {
     return eval(x, y);
   }
 
+
   @Override
   public Cell get(int x, int y) {
     return table[x][y];
@@ -75,44 +76,47 @@ public class Ex2Sheet implements Sheet {
     int[][] ans = new int[width()][height()];
     for (int x = 0; x < width(); x++) {
       for (int y = 0; y < height(); y++) {
+        ans[x][y] = depthHepler(List.of(new Position(x, y)));
+        table[x][y].setOrder(ans[x][y]);
       }
     }
 
     return ans;
   }
 
-  int depthSingle(List<Position> coords) {
-    Position last = coords.getLast();
+  int depthHepler(List<Position> positions) {
+    Position last = positions.getLast();
     Cell cell = table[last.x][last.y];
     String line = cell.getData();
 
-    boolean openCoord = false;
+    boolean pos = false;
+
 
     ArrayList<String> parts = new ArrayList<>();
 
     for (int i = 0; i < line.length(); i++) {
       char ch = line.charAt(i);
-      if (!openCoord) {
+      if (!pos) {
         if (Character.isAlphabetic(ch)) {
-          openCoord = true;
+          pos = true;
           parts.add(ch + "");
         }
       } else {
         if (Character.isDigit(ch))
           parts.set(parts.size() - 1, parts.getLast() + ch);
         else
-          openCoord = false;
+          pos = false;
       }
     }
 
-    ArrayList<Position> newCoords = new ArrayList<Position>();
+    ArrayList<Position> positionNew = new ArrayList<Position>();
     for (int i = 0; i < parts.size(); i++) {
       Position newCoord = parsePosition(parts.get(i));
 
-      if (containsCoord(coords, newCoord))
+      if (isPositions(positions, newCoord))
         return -1;
 
-      newCoords.add(newCoord);
+      positionNew.add(newCoord);
     }
 
     // for (int i = 0;)
@@ -204,7 +208,7 @@ public class Ex2Sheet implements Sheet {
 
       Position position = parsePosition(form);
       if (position.x != -1) {
-        if (containsCoord(positions, position))
+        if (isPositions(positions, position))
           return Ex2Utils.ERR_CYCLE;
 
         if (!isIn(position.x, position.y))
@@ -239,7 +243,7 @@ public class Ex2Sheet implements Sheet {
       double num0 = Double.parseDouble(num0Str);
       double num1 = Double.parseDouble(num1Str);
 
-      double result = calculateByBiOp(num0, num1, op);
+      double result = AllOperators(num0, num1, op);
       return String.valueOf(result);
     }
 
@@ -251,7 +255,7 @@ public class Ex2Sheet implements Sheet {
 
       double num1 = parseDouble(num1Str);
 
-      double result = calculateByUnOp(num1, op);
+      double result = PlusMinus(num1, op);
       return String.valueOf(result);
     }
 
@@ -334,7 +338,7 @@ public class Ex2Sheet implements Sheet {
     return new Position(x, y);
   }
 
-  double calculateByUnOp(double n, char op) {
+  double PlusMinus(double n, char op) {
     return switch (op) {
       case '+' -> n;
       case '-' -> -n;
@@ -342,7 +346,7 @@ public class Ex2Sheet implements Sheet {
     };
   }
 
-  double calculateByBiOp(double n0, double n1, char op) {
+  double AllOperators(double n0, double n1, char op) {
     return switch (op) {
       case '+' -> n0 + n1;
       case '-' -> n0 - n1;
@@ -365,13 +369,14 @@ public class Ex2Sheet implements Sheet {
       return Integer.parseInt(s);
     } catch (Exception e) {
       return -1;
+
     }
   }
 
-  boolean containsCoord(List<Position> coords, Position coord) {
-    for (int i = 0; i < coords.size(); i++) {
-      Position coordCrnt = coords.get(i);
-      if (coord.x == coordCrnt.x && coord.y == coordCrnt.y)
+  boolean isPositions(List<Position> positions, Position pos) {
+    for (int i = 0; i < positions.size(); i++) {
+      Position coordCrnt = positions.get(i);
+      if (pos.x == coordCrnt.x && pos.y == coordCrnt.y)
         return true;
     }
 

@@ -102,7 +102,7 @@ public interface Sheet {
      * In case a cell is a circular dependency (e.g., c1 depends on c2 & c2 depends
      * on c1) its depth should be -1.
      */
-    public int[][] depth();
+   public int[][] depth();
 
     /**
      * Saves this SpreadSheet into a text file.

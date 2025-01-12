@@ -81,9 +81,9 @@ public class Testim {
         positions.add(new Position(2, 2));
 
         // Test for positions present in the list
-        assertTrue(sheet.containsCoord(positions, new Position(0, 0)));
-        assertTrue(sheet.containsCoord(positions, new Position(1, 1)));
-        assertTrue(sheet.containsCoord(positions, new Position(2, 2)));
+        assertTrue(sheet.isPositions(positions, new Position(0, 0)));
+        assertTrue(sheet.isPositions(positions, new Position(1, 1)));
+        assertTrue(sheet.isPositions(positions, new Position(2, 2)));
     }
     @Test
     public void testIsOp(){
